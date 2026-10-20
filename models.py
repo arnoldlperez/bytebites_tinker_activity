@@ -26,11 +26,20 @@ class Menu:
 
     def add_item(self, item: FoodItem) -> None:
         """Add a food item to the menu."""
-        raise NotImplementedError
+        self.items.append(item)
 
     def filter_by_category(self, category: str) -> list[FoodItem]:
-        """Return the items in the given category."""
-        raise NotImplementedError
+        """Return the items in the given category (case-insensitive)."""
+        target = category.lower()
+        return [item for item in self.items if item.category.lower() == target]
+
+    def sort_by_price(self, descending: bool = False) -> list[FoodItem]:
+        """Return the items sorted by price, cheapest first by default."""
+        return sorted(self.items, key=lambda item: item.price, reverse=descending)
+
+    def sort_by_popularity(self, descending: bool = True) -> list[FoodItem]:
+        """Return the items sorted by popularity rating, most popular first by default."""
+        return sorted(self.items, key=lambda item: item.popularity_rating, reverse=descending)
 
 
 class Order:
@@ -41,11 +50,11 @@ class Order:
 
     def add_item(self, item: FoodItem) -> None:
         """Add a selected item to the order."""
-        raise NotImplementedError
+        self.items.append(item)
 
     def compute_total(self) -> float:
         """Return the sum of item prices, rounded to 2 decimals."""
-        raise NotImplementedError
+        return round(sum((item.price for item in self.items), 0.0), 2)
 
 
 class Customer:
@@ -57,4 +66,4 @@ class Customer:
 
     def is_verified(self) -> bool:
         """Return True if the customer has at least one past order."""
-        raise NotImplementedError
+        return len(self.purchase_history) > 0
