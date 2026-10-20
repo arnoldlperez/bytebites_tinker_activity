@@ -9,6 +9,8 @@ Do not add authentication logic, a database layer, or any features not described
 in the spec.
 
 ## Behavioral Instructions
-<!-- Write a short set of instructions guiding how your AI assistant should behave 
-when helping with this project — for example, which classes to stay within, 
-what complexity to avoid, or any preferences for how suggestions are structured. -->
+- Limit the design to `Customer`, `FoodItem`, `Menu`, and `Order`, using the names in `bytebites_classes.puml`. Propose any new class or design change before implementing it.
+- Use Python 3 with the standard library only. Prefer plain classes with type hints; avoid inheritance and design patterns unless they're clearly needed.
+- Keep `category` as a string, start each `Order` empty, and round `compute_total()` to 2 decimals.
+- Where the spec is ambiguous, state your assumption rather than choosing silently.
+- Keep changes small and explain the reasoning briefly.

@@ -23,6 +23,8 @@ class Menu {
   +items: list<FoodItem>
   +add_item(item: FoodItem): void
   +filter_by_category(category: str): list<FoodItem>
+  +sort_by_price(descending: bool = False): list<FoodItem>
+  +sort_by_popularity(descending: bool = True): list<FoodItem>
 }
 
 class Order {
@@ -64,7 +66,8 @@ Order "0..*" --> "0..*" FoodItem : contains
 ## Assumptions
 - `is_verified()` returns `True` if the customer has at least one past order; it does not block ordering.
 - `add_item()` on `Menu` and `Order` is implied by the spec rather than stated.
-- `category` is a plain string, not a separate class.
+- `category` is a plain string, not a separate class. `filter_by_category()` matches case-insensitively.
+- Sorting (`sort_by_price()`, `sort_by_popularity()`) is not in the spec; it was added for the implementation activity. Both return a new list and leave `Menu.items` unchanged.
 - `Order` does not reference its `Customer`; the spec doesn't require it.
 
 ## Changes from the Initial Draft

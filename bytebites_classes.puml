@@ -1,0 +1,41 @@
+@startuml ByteBites
+title ByteBites - Class Diagram (revised)
+
+class Customer {
+  +name: str
+  +purchase_history: list<Order>
+  +is_verified(): bool
+}
+
+class FoodItem {
+  +name: str
+  +price: float
+  +category: str
+  +popularity_rating: float
+}
+
+class Menu {
+  +items: list<FoodItem>
+  +add_item(item: FoodItem): void
+  +filter_by_category(category: str): list<FoodItem>
+  +sort_by_price(descending: bool = False): list<FoodItem>
+  +sort_by_popularity(descending: bool = True): list<FoodItem>
+}
+
+class Order {
+  +items: list<FoodItem>
+  +add_item(item: FoodItem): void
+  +compute_total(): float
+}
+
+note right of Order
+  Starts empty.
+  compute_total() sums item prices,
+  rounded to 2 decimals.
+end note
+
+Customer "1" --> "0..*" Order : purchase history
+Menu "1" o-- "0..*" FoodItem : holds
+Order "0..*" --> "0..*" FoodItem : contains
+
+@enduml
